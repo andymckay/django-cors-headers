@@ -62,7 +62,7 @@ class CorsMiddleware(object):
             settings = get_active_settings(request)
             url = urlparse(origin)
             if (not settings.CORS_ORIGIN_ALLOW_ALL and
-                    self.origin_not_found_in_white_lists(
+                    self.origin_not_found_in_allow_lists(
                         origin, url, settings)):
                 return
 
@@ -122,7 +122,7 @@ class CorsMiddleware(object):
                     response[ACCESS_CONTROL_ALLOW_ORIGIN] = origin
 
             if (not settings.CORS_ORIGIN_ALLOW_ALL and
-                    self.origin_not_found_in_white_lists(
+                    self.origin_not_found_in_allow_lists(
                         origin, url, settings)):
                 return response
 
@@ -148,12 +148,12 @@ class CorsMiddleware(object):
 
         return response
 
-    def origin_not_found_in_white_lists(self, origin, url, settings):
-        return (url.netloc not in settings.CORS_ORIGIN_WHITELIST and
+    def origin_not_found_in_allow_lists(self, origin, url, settings):
+        return (url.netloc not in settings.CORS_ORIGIN_ALLOW_LIST and
                 not self.regex_domain_match(origin, settings))
 
     def regex_domain_match(self, origin, settings):
-        for domain_pattern in settings.CORS_ORIGIN_REGEX_WHITELIST:
+        for domain_pattern in settings.CORS_ORIGIN_REGEX_ALLOW_LIST:
             if re.match(domain_pattern, origin):
                 return origin
 

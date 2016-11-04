@@ -37,20 +37,20 @@ Note that `CorsMiddleware` needs to come before Django's `CommonMiddleware` if y
 
 ## Configuration ##
 
-Add hosts that are allowed to do cross-site requests to `CORS_ORIGIN_WHITELIST` or set `CORS_ORIGIN_ALLOW_ALL` to `True` to allow all hosts.
+Add hosts that are allowed to do cross-site requests to `CORS_ORIGIN_ALLOW_LIST` or set `CORS_ORIGIN_ALLOW_ALL` to `True` to allow all hosts.
 
 
->CORS\_ORIGIN\_ALLOW\_ALL: if True, the whitelist will not be used and all origins will be accepted
+>CORS\_ORIGIN\_ALLOW\_ALL: if True, the allow list will not be used and all origins will be accepted
 
     Default:
 
         CORS_ORIGIN_ALLOW_ALL = False
 
->CORS\_ORIGIN\_WHITELIST: specify a list of origin hostnames that are authorized to make a cross-site HTTP request
+>CORS\_ORIGIN\_ALLOW_LIST: specify a list of origin hostnames that are authorized to make a cross-site HTTP request
 
     Example:
 
-        CORS_ORIGIN_WHITELIST = (
+        CORS_ORIGIN_ALLOW_LIST = (
             'google.com',
             'hostname.example.com'
         )
@@ -58,18 +58,18 @@ Add hosts that are allowed to do cross-site requests to `CORS_ORIGIN_WHITELIST` 
 
     Default:
 
-        CORS_ORIGIN_WHITELIST = ()
+        CORS_ORIGIN_ALLOW_LIST = ()
 
->CORS\_ORIGIN\_REGEX\_WHITELIST: specify a regex list of origin hostnames that are authorized to make a cross-site HTTP request; Useful when you have a large amount of subdomains for instance.
+>CORS\_ORIGIN\_REGEX\_ALLOW_LIST: specify a regex list of origin hostnames that are authorized to make a cross-site HTTP request; Useful when you have a large amount of subdomains for instance.
 
     Example:
 
-        CORS_ORIGIN_REGEX_WHITELIST = ('^(https?://)?(\w+\.)?google\.com$', )
+        CORS_ORIGIN_REGEX_ALLOW_LIST = ('^(https?://)?(\w+\.)?google\.com$', )
 
 
     Default:
 
-        CORS_ORIGIN_REGEX_WHITELIST = ()
+        CORS_ORIGIN_REGEX_ALLOW_LIST = ()
 
 
 ---
@@ -148,7 +148,7 @@ You may optionally specify these options in settings.py to override the defaults
 
         CORS_ENDPOINT_OVERRIDES = [
             (r'/api/user/.*$', {
-                'CORS_ORIGIN_WHITELIST': ['https://secure.mydomain.com'],
+                'CORS_ORIGIN_ALLOW_LIST': ['https://secure.mydomain.com'],
             }),
             (r'/api/public/.*$', {
                 'CORS_ORIGIN_ALLOW_ALL': True,
@@ -164,7 +164,7 @@ v0.13 and onwards - [Release Notes](https://github.com/ottoyiu/django-cors-heade
 
 v0.12 - Added an option to selectively enable CORS only for specific URLs
 
-v0.11 - Added the ability to specify a regex for whitelisting many origin hostnames at once
+v0.11 - Added the ability to specify a regex for allow listing many origin hostnames at once
 
 v0.10 - Introduced port distinction for origin checking; use ``urlparse`` for Python 3 support; added testcases to project
 
